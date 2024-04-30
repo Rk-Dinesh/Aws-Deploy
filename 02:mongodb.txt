@@ -1,0 +1,136 @@
+Installation of MOngoDb:
+
+To import the MongoDB public GPG key,
+
+curl -fsSL https://www.mongodb.org/static/pgp/server-7.0.asc | \
+   sudo gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg \
+   --dearmor
+
+2.List file:
+
+echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
+
+3. Reload Local package:
+
+sudo apt-get update
+
+
+4.Install MongoDB:
+
+sudo apt-get install -y mongodb-org
+
+5.Start and verify the service
+
+sudo systemctl start mongod
+sudo systemctl status mongod
+
+6.Enable the service start on every reboot
+
+sudo systemctl enable mongod
+
+
+7. To install forever:
+
+npm install forever -g or sudo npm install forever -g
+
+8.make directory:
+
+mkdir <filename />
+
+9. update db.js with mongodb url and app.js cors policy:
+
+const connection = mongoose.createConnection('DATABASE CONNECTION STRING').on('open',() => {
+    console.log("MongoDB Connected");
+}).on('error',() =>{
+    console.log("MongoDB Connection error");
+});
+
+
+cors policy:
+
+app.use(cors({
+    "Access-Control-Allow-Origin": "*",
+    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+    "preflightContinue": false,
+    "optionsSuccessStatus": 204,
+    "Access-Control-Allow-Headers": "Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+}));
+
+10. clone repo :
+
+git clone <repo></repo>
+
+11. cd to repo and installnode packages:
+
+npm install
+
+12. nodemon to global:
+
+sudo npm install -g --force nodemon or  npm install -g --force nodemon
+
+13.Security Inbound rules:
+
+http,https, custom tcp port(i.e : 4000) ,custom tcp db (27017)
+
+ip version: IPV4
+
+14.Edit the /etc/mongod.conf
+
+sudo nano /etc/mongod.conf
+
+# network interfaces
+net:
+  port: 27017
+  bindIp: 127.0.0.1  # Enter 0.0.0.0,:: to bind to all IPv4 and IPv6 addresses or, alternatively, use the net.bindIpAll setting.
+
+14.check running status: and check for connection
+
+npm run dev
+
+15.create authentication:
+
+command: mongosh
+
+show dbs
+
+use <db>
+
+db.createUser(
+   {
+     user: "user",
+     pwd: "pass",
+     roles: [
+       { role: "readWrite", db: "<db>" }
+     ]
+   }
+)
+
+
+and exit.
+
+16.Edit the /etc/mongod.conf
+
+sudo nano /etc/mongod.conf
+
+security:
+  authorization: enabled
+
+
+step 17: restart
+
+sudo service mongod restart
+sudo systemctl start mongod
+sudo systemctl status mongod
+
+step 18; update credentials:
+
+mongodb://<credentials>@13.50.120.237:27017/b4vdie_db?directConnection=true
+
+mongodb://user:pass@13.50.120.237:27017/b4vdie_db?directConnection=true
+
+
+
+
+
+
+
