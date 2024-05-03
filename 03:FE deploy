@@ -1,0 +1,5 @@
+1.To Install node and npm follow 01: FILE CODES
+2.clone repo
+3.sudo apt install nginx -y
+4.sudo cp -r dist/* /var/www/html
+
